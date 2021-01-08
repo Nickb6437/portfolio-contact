@@ -23,8 +23,8 @@ app.post("/email", (req,res) => {
     const email = req.body.contact.email;
 
     const msg = {
-    to: "nickb6437@outlook.com",
-    from: "nickb6437@outlook.com",
+    to: (process.env.EMAIL),
+    from: (process.env.EMAIL),
     subject: name + " Portfolio Contact", 
     text: "Email address " + email + " message = " + body
     };
