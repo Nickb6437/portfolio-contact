@@ -38,9 +38,7 @@ app.post("/email", (req,res) => {
             console.log("Message Sent")
         }
     });
-
-    console.log(msg)
-
+    
 });
 
 
@@ -50,5 +48,5 @@ if (port == null || port == "") {
 }
 
 app.listen(port, function() {
-  console.log("Server started on succesfully");
+  console.log("Server started on port " + port " succesfully");
 });
