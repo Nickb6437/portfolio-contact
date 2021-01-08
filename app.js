@@ -22,8 +22,6 @@ app.post("/email", (req,res) => {
     const name = req.body.contact.name;
     const email = req.body.contact.email;
 
-    
-    
     const msg = {
     to: "nickb6437@outlook.com",
     from: "nickb6437@outlook.com",
@@ -40,7 +38,6 @@ app.post("/email", (req,res) => {
     });
     
 });
-
 
 let port = process.env.PORT;
 if (port == null || port == "") {
