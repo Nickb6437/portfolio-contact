@@ -48,5 +48,5 @@ if (port == null || port == "") {
 }
 
 app.listen(port, function() {
-  console.log("Server started on port " + port " succesfully");
+  console.log("Server started succesfully");
 });
