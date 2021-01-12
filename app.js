@@ -18,6 +18,8 @@ app.get("/", (req, res) => {
 
 app.post("/email", (req,res) => {
 
+    res.header("Access-Control-Allow-Origin", "*");
+
     const body = req.body.contact.message;
     const name = req.body.contact.name;
     const email = req.body.contact.email;
