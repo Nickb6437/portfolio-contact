@@ -4,8 +4,6 @@ const bodyParser = require('body-parser');
 const cors = require ("cors");
 const sgMail = require("sendgrid")(process.env.SENDGRID_API_KEY);
 
-// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -45,14 +43,13 @@ app.post("/email", (req,res) => {
         },
     });
 
+   
     sgMail.API(request)
   .then(response => {
     console.log(response.statusCode);
     console.log("message sent");
     })
   .catch(error => {
-    //error is an instance of SendGridError
-    //The full response is attached to error.response
     console.log(error);
   });
     
