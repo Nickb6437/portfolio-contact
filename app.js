@@ -2,7 +2,9 @@ require('dotenv').config()
 const express = require ("express");
 const bodyParser = require('body-parser');
 const cors = require ("cors");
-const sgMail = require("sendgrid")(process.env.SENDGRID_API_KEY);
+const sgMail = require("@sendgrid/mail");
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const app = express();
 
@@ -23,37 +25,52 @@ app.post("/email", (req,res) => {
     const body = req.body.contact.message;
     const name = req.body.contact.name;
     const email = req.body.contact.email;
-    
-    const request = sgMail.emptyRequest({
-        method: 'POST',
-        path: '/v3/mail/send',
-        body: {
-            personalizations: [{
-              to: [
-                {email: (process.env.EMAIL),},
-              ],
-              subject: name + " portfolio contact!",
-            },
-            ],
-               from: {email: (process.env.EMAIL),},
-            content: [
-                {
-                type: 'text/plain',
-                value: email + name + body,
-                },
-            ],
-        },
+
+    const msg = {
+        to: (process.env.EMAIL),
+        from: (process.env.EMAIL),
+        subject: "Portfolio Contact from " + name ,
+        text: body,
+    };
+
+    sgMail.send(msg)
+        .then(() => {}, error => {
+            console.error(error);
+        if (error.response) {
+            console.error(error.response.body)
+        }
     });
+    
+//     const request = sgMail.emptyRequest({
+//         method: 'POST',
+//         path: '/v3/mail/send',
+//         body: {
+//             personalizations: [{
+//               to: [
+//                 {email: (process.env.EMAIL),},
+//               ],
+//               subject: name + " portfolio contact!",
+//             },
+//             ],
+//                from: {email: (process.env.EMAIL),},
+//             content: [
+//                 {
+//                 type: 'text/plain',
+//                 value: email + name + body,
+//                 },
+//             ],
+//         },
+//     });
 
    
-    sgMail.API(request)
-  .then(response => {
-    console.log(response.statusCode);
-    console.log("message sent");
-    })
-  .catch(error => {
-    console.log(error);
-  });
+//     sgMail.API(request)
+//   .then(response => {
+//     console.log(response.statusCode);
+//     console.log("message sent");
+//     })
+//   .catch(error => {
+//     console.log(error);
+//   });
     
 });
 
