@@ -2,9 +2,9 @@ require('dotenv').config()
 const express = require ("express");
 const bodyParser = require('body-parser');
 const cors = require ("cors");
-const sgMail = require("@sendgrid/mail");
+const sgMail = require("sendgrid")(process.env.SENDGRID_API_KEY);
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const app = express();
 
@@ -17,25 +17,44 @@ app.get("/", (req, res) => {
     res.send("API is running")
 });
 
+
 app.post("/email", (req,res) => {
+
     const body = req.body.contact.message;
     const name = req.body.contact.name;
     const email = req.body.contact.email;
-
-    const msg = {
-    to: (process.env.EMAIL),
-    from: (process.env.EMAIL),
-    subject: name + " Portfolio Contact", 
-    text: "Email address " + email + " message = " + body
-    };
-
-    sgMail.send(msg, (err, res) => {
-        if(err) {
-            console.log(err)
-        }else {
-            console.log("Message Sent")
-        }
+    
+    const request = sgMail.emptyRequest({
+        method: 'POST',
+        path: '/v3/mail/send',
+        body: {
+            personalizations: [{
+              to: [
+                {email: (process.env.EMAIL),},
+              ],
+              subject: name + " portfolio contact!",
+            },
+            ],
+               from: {email: (process.env.EMAIL),},
+            content: [
+                {
+                type: 'text/plain',
+                value: email + name + body,
+                },
+            ],
+        },
     });
+
+    sgMail.API(request)
+  .then(response => {
+    console.log(response.statusCode);
+    console.log("message sent");
+    })
+  .catch(error => {
+    //error is an instance of SendGridError
+    //The full response is attached to error.response
+    console.log(error);
+  });
     
 });
 
