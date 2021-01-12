@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
 
 app.post("/email", (req,res) => {
 
-    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", "https://nickb6437.github.io");
 
     const body = req.body.contact.message;
     const name = req.body.contact.name;
