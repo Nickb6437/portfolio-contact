@@ -29,7 +29,7 @@ app.post("/email", (req,res) => {
     const msg = {
         to: (process.env.EMAIL),
         from: (process.env.EMAIL),
-        subject: "Portfolio Contact from " + name ,
+        subject: "Portfolio Contact from " + name,
         text: body,
     };
 
@@ -40,37 +40,6 @@ app.post("/email", (req,res) => {
             console.error(error.response.body)
         }
     });
-    
-//     const request = sgMail.emptyRequest({
-//         method: 'POST',
-//         path: '/v3/mail/send',
-//         body: {
-//             personalizations: [{
-//               to: [
-//                 {email: (process.env.EMAIL),},
-//               ],
-//               subject: name + " portfolio contact!",
-//             },
-//             ],
-//                from: {email: (process.env.EMAIL),},
-//             content: [
-//                 {
-//                 type: 'text/plain',
-//                 value: email + name + body,
-//                 },
-//             ],
-//         },
-//     });
-
-   
-//     sgMail.API(request)
-//   .then(response => {
-//     console.log(response.statusCode);
-//     console.log("message sent");
-//     })
-//   .catch(error => {
-//     console.log(error);
-//   });
     
 });
 
