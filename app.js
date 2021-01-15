@@ -11,10 +11,7 @@ const app = express();
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(cors({
-//     origin: "https://nickb6437.github.io",
-//     methods: ["GET", "POST"]
-// }));
+app.use(cors());
 
 const corsOptions = {
     origin: "https://nickb6437.github.io",
