@@ -13,18 +13,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-const corsOptions = {
-    origin: "*",
-    methods: ["GET", "POST"],
-    allowedHeaders: "*"
-}
+// const corsOptions = {
+//     origin: "*",
+//     methods: ["GET", "POST"],
+//     Access-Control-Allow-Headers: "*"
+// }
 
 app.get("/", (req, res) => {
     res.send("API is running")
 });
 
 
-app.post("/email", cors(corsOptions), (req,res) => {
+app.post("/email", (req,res) => {
 
     
     const body = req.body.contact.message;
