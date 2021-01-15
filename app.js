@@ -16,6 +16,7 @@ app.use(cors());
 const corsOptions = {
     origin: "https://nickb6437.github.io",
     methods: ["GET", "POST"]
+    allowHeaders: "*";
 }
 
 app.get("/", (req, res) => {
