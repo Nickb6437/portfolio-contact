@@ -11,7 +11,10 @@ const app = express();
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({
+    origin: "https://nickb6437.github.io",
+    methods: ["GET", "POST"]
+}));
 
 app.get("/", (req, res) => {
     res.send("API is running")
