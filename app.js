@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 const corsOptions = {
-    origin: "https://nickb6437.github.io",
+    origin: "*",
     methods: ["GET", "POST"],
     allowedHeaders: "*"
 }
