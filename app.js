@@ -13,16 +13,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-// const corsOptions = {
-//     origin: "*",
-//     methods: ["GET", "POST"],
-//     Access-Control-Allow-Headers: "*"
-// }
+app.all('/', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "https://nickb6437.github.io");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next()
+  });
 
 app.get("/", (req, res) => {
     res.send("API is running")
 });
-
 
 app.post("/email", (req,res) => {
 
