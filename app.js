@@ -20,8 +20,7 @@ app.get("/", (req, res) => {
 
 app.post("/email", (req,res) => {
 
-    res.header("Access-Control-Allow-Origin", "https://nickb6437.github.io");
-
+    
     const body = req.body.contact.message;
     const name = req.body.contact.name;
     const email = req.body.contact.email;
@@ -30,24 +29,16 @@ app.post("/email", (req,res) => {
         to: (process.env.EMAIL),
         from: (process.env.EMAIL),
         subject: "Portfolio Contact from " + name,
-        text: body,
+        text: email + " " + body,
     };
 
     sgMail.send(msg)
-        .then(() => {}, error => {
-            console.error(error);
-        if (error.response) {
-            console.error(error.response.body)
-        }
-    });
-    
+    console.log(msg)
+        
 });
 
-let port = process.env.PORT;
-if (port == null || port == "") {
-  port = 3000;
-}
+let port = process.env.PORT || 3000;
 
 app.listen(port, function() {
-  console.log("Server started succesfully");
+  console.log("Server started succesfully " + port);
 });
