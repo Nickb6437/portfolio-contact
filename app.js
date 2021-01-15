@@ -16,12 +16,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //     methods: ["GET", "POST"]
 // }));
 
+const corsOptions = {
+    origin: "https://nickb6437.github.io",
+    methods: ["GET", "POST"]
+}
+
 app.get("/", (req, res) => {
     res.send("API is running")
 });
 
 
-app.post("/email", cors(), (req,res) => {
+app.post("/email", cors(corsOptions), (req,res) => {
 
     
     const body = req.body.contact.message;
