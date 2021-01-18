@@ -13,12 +13,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-app.all('/', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "https://nickb6437.github.io");
-    res.header("Access-Control-Allow-Headers", "content-type");
-    res.header("Access-Control-Allow-Credentials", true );
-    next()
-  });
+app.use((req, res) => {
+    res.setHeader("Access-Control-Aloow-Origin", "*");
+    res.setHeader("Access-Control-Aloow-Methods", "GET, POST, PUT, Patch, DELETE");
+    res.setHeader("Access-Control-Aloow-Headers", "Content-Type, Authorization");
+})
 
 app.get("/", (req, res) => {
     res.send("API is running")
@@ -35,10 +34,21 @@ app.post("/email", (req,res) => {
         to: (process.env.EMAIL),
         from: (process.env.EMAIL),
         subject: "Portfolio Contact from " + name,
-        text: email + " " + body,
+        text: email + " this should send right" + body,
     };
 
     sgMail.send(msg)
+        .then(result => {
+            res.status(200).json({
+                success: true
+            });
+        })
+        .catch(err => {
+            console.log("error: ", err);
+            res.status(401).json({
+                success: false
+            });
+        });
     console.log(msg)
         
 });
