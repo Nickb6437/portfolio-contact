@@ -32,7 +32,7 @@ app.post("/email", (req,res) => {
     
     const msg = {
         to: (process.env.EMAIL),
-        from: (process.env.EMAIL),
+        from: (process.env.EMAIL2),
         subject: "Portfolio Contact from " + name,
         text: email + " " + body,
     };
