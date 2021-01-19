@@ -25,15 +25,14 @@ app.get("/", (req, res) => {
 });
 
 app.post("/email", (req,res) => {
-
     
     const body = req.body.contact.message;
     const name = req.body.contact.name;
     const email = req.body.contact.email;
     
     const msg = {
-        to: "nickresponders@gmail.com",
-        from: "nickresponders@gmail.com",
+        to: (process.env.EMAIL),
+        from: (process.env.EMAIL),
         subject: "Portfolio Contact from " + name,
         text: email + " " + body,
     };
