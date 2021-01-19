@@ -46,7 +46,11 @@ app.post("/email", (req,res) => {
             console.log("Sent")
         })
         .catch(err => {
-            console.log("error: ", err);
+            console.error(error.toString());
+            const {message, code, response} = error;
+            const {headers, body} = response;
+            console.log(response);
+            console.log(error);
             res.status(401).json({
                 success: false
             });
