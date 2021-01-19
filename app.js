@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use((req, res, next) => {
-    res.setHeader("Access-Control-Aloow-Origin", "https://sendgrid.api-docs.io");
+    res.setHeader("Access-Control-Aloow-Origin", "https://sendgrid.api-docs.io", "https://portfolio-contactform.herokuapp.com/email" );
     res.setHeader("Access-Control-Aloow-Methods", "POST");
     res.setHeader("Access-Control-Aloow-Headers", "Authorization, Content-Type, On-behalf-of, x-sg-elas-acl");
     next()
