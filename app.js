@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use((req, res, next) => {
-    res.setHeader("Access-Control-Aloow-Origin", "https://sendgrid.api-docs.io", "https://portfolio-contactform.herokuapp.com/email" );
+    res.setHeader("Access-Control-Aloow-Origin", "https://sendgrid.api-docs.io", "https://nickb6437.github.io/portfolio" );
     res.setHeader("Access-Control-Aloow-Methods", "POST");
     res.setHeader("Access-Control-Aloow-Headers", "Authorization, Content-Type, On-behalf-of, x-sg-elas-acl");
     next()
@@ -32,8 +32,8 @@ app.post("/email", (req,res) => {
     const email = req.body.contact.email;
 
     const msg = {
-        to: (process.env.EMAIL),
-        from: (process.env.EMAIL),
+        to: "nickb6437@outlook.com",
+        from: "nickb6437@outlook.com",
         subject: "Portfolio Contact from " + name,
         text: email + " " + body,
     };
