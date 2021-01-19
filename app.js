@@ -13,10 +13,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-app.use((req, res) => {
-    res.setHeader("Access-Control-Aloow-Origin", "*");
-    res.setHeader("Access-Control-Aloow-Methods", "GET, POST, PUT, Patch, DELETE");
-    res.setHeader("Access-Control-Aloow-Headers", "Content-Type, Authorization");
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Aloow-Origin", "https://sendgrid.api-docs.io");
+    res.setHeader("Access-Control-Aloow-Methods", "POST");
+    res.setHeader("Access-Control-Aloow-Headers", "Authorization, Content-Type, On-behalf-of, x-sg-elas-acl");
+    next()
 })
 
 app.get("/", (req, res) => {
@@ -34,7 +35,7 @@ app.post("/email", (req,res) => {
         to: (process.env.EMAIL),
         from: (process.env.EMAIL),
         subject: "Portfolio Contact from " + name,
-        text: email + " this should send right" + body,
+        text: email + " " + body,
     };
 
     sgMail.send(msg)
@@ -42,12 +43,14 @@ app.post("/email", (req,res) => {
             res.status(200).json({
                 success: true
             });
+            console.log("Sent")
         })
         .catch(err => {
             console.log("error: ", err);
             res.status(401).json({
                 success: false
             });
+            console.log("Failed")
         });
     console.log(msg)
         
